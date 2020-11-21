@@ -48,8 +48,9 @@ char *soundex(char *s)
     }
     char prev = '?', prevOutput = '?'; //符号字符
 
-    for (int i = 0; i < strlen(str) && strlen_c(buffer) < 4 && (c = str[i]) != ','; i++)
+    for (int i = 0; i < strlen(str) && strlen_c(buffer) < 4; i++)
     {
+        c = str[i];
         //判断字母是否为大写，且是否为符号字符
         if (c >= 'A' && c <= 'Z' && c != prev)
         {
