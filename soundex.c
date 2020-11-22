@@ -8,7 +8,7 @@ void append(char *buffer, char c)
 {
     for (int i = 0; i < MAX_LEN; i++)
     {
-        if (buffer[i] == '-')
+        if (buffer[i] == '\0')
         {
             buffer[i] = c;
             return;
@@ -16,22 +16,9 @@ void append(char *buffer, char c)
     }
 }
 
-int strlen_c(char *buffer)
+char *soundex_encoding(char *s)
 {
-    int c = MAX_LEN;
-    for (int i = 0; i < MAX_LEN; i++)
-    {
-        if (buffer[i] == '-')
-        {
-            c--;
-        }
-    }
-    return c;
-}
-
-char *soundex(char *s)
-{
-    static char MAP[] = {
+    char MAP[] = {
         //A   B    C    D    E    F    G    H    I    J    K    L    M
         '0', '1', '2', '3', '0', '1', '2', '0', '0', '2', '2', '4', '5',
         //N   O    P    Q    R    S    T    U    V    W    X    Y    Z
@@ -40,64 +27,54 @@ char *soundex(char *s)
     char *str = malloc(sizeof(MAX_LEN * (sizeof(char))));
     strcpy(str, s);
     str = strupr(str);
-    char c;
     char buffer[MAX_LEN];
     for (int i = 0; i < MAX_LEN; i++)
     {
-        buffer[i] = '-';
+        buffer[i] = '\0';
     }
-    char prev = '?', prevOutput = '?'; //符号字符
+    char prev = '?', prevOutput = '?'; // 符号字符
 
-    for (int i = 0; i < strlen(str) && strlen_c(buffer) < 4; i++)
+    // 沿用首字符
+    append(buffer, str[0]);
+    for (int i = 1; i < strlen(str) && strlen(buffer) < 4; i++)
     {
-        c = str[i];
-        //判断字母是否为大写，且是否为符号字符
+        char c = str[i];
+        // 判断字母是否为大写，且是否为符号字符
         if (c >= 'A' && c <= 'Z' && c != prev)
         {
             prev = c;
-            //沿用首字符，依次进行排序，不是首字符的按照 Soundex 码
-            if (i == 0)
+            char m = MAP[c - 'A'];
+            // 去除重复的字母
+            if (m != '0' && m != prevOutput)
             {
-                append(buffer, c);
-            }
-            else
-            {
-                char m = MAP[c - 'A'];
-                //去除重复的英文字母
-                if (m != '0' && m != prevOutput)
-                {
-                    append(buffer, m);
-                    prevOutput = m;
-                }
+                append(buffer, m);
+                prevOutput = m;
             }
         }
     }
+    free(str);
 
-    //如果长度不够4就添加0
-    for (int i = strlen_c(buffer); i < 4; i++)
+    // 如果长度不够4就添加0
+    for (int i = strlen(buffer); i < 4; i++)
     {
         append(buffer, '0');
     }
-    free(str);
-    char *encodedStr = malloc(sizeof(MAX_LEN * (sizeof(char))));
-    encodedStr[0] = buffer[0];
-    encodedStr[1] = buffer[1];
-    encodedStr[2] = buffer[2];
-    encodedStr[3] = buffer[3];
-    encodedStr[4] = '\0';
-    return encodedStr;
+
+    char *result = malloc(sizeof(MAX_LEN * (sizeof(char))));
+    strcpy(result, buffer);
+    return result;
 }
 
 int main(void)
 {
     char s[10] = "Marc";
     printf("%s\n", s);
-    printf("%s\n", soundex(s));
+    printf("%s\n", soundex_encoding(s));
     printf("%s\n\n", s);
 
     strcpy(s, "Taylor");
     printf("%s\n", s);
-    printf("%s\n", soundex(s));
+    printf("%s\n", soundex_encoding(s));
     printf("%s\n\n", s);
     return 0;
 }
