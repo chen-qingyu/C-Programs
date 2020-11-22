@@ -67,14 +67,14 @@ char *soundex_encoding(char *s)
 
 int main(void)
 {
-    char s[10] = "Marc";
-    printf("%s\n", s);
-    printf("%s\n", soundex_encoding(s));
-    printf("%s\n\n", s);
+    char s[][20] = {"Marc", "Taylor", "Taaaaaylor", "ChenQingyu", "ChanQingyu"};
 
-    strcpy(s, "Taylor");
-    printf("%s\n", s);
-    printf("%s\n", soundex_encoding(s));
-    printf("%s\n\n", s);
+    for (int i = 0; i < sizeof(s) / sizeof(s[0]); i++)
+    {
+        printf("%s\n", s[i]);
+        printf("%s\n", soundex_encoding(s[i]));
+        printf("\n");
+    }
+
     return 0;
 }
