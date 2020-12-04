@@ -52,6 +52,13 @@ char *soundex_encoding(char *s)
             }
         }
     }
+    if (buffer[1] == MAP[str[0] - 'A'])
+    {
+        for (int i = 1; i < MAX_LEN - 1; i++)
+        {
+            buffer[i] = buffer[i + 1];
+        }
+    }
     free(str);
 
     // 如果长度不够4就添加0
@@ -67,7 +74,7 @@ char *soundex_encoding(char *s)
 
 int main(void)
 {
-    char s[][20] = {"Marc", "Taylor", "Taaaaaylor", "ChenQingyu", "ChanQingyu"};
+    char s[][20] = {"Marc", "Tttaylor", "Taaaaaylor", "ChenQingyu", "ChanQingyu"};
 
     for (int i = 0; i < sizeof(s) / sizeof(s[0]); i++)
     {
