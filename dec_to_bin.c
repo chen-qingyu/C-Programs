@@ -1,6 +1,6 @@
 #include <limits.h>
 #include <stdio.h>
-#define SIZE CHAR_BIT * sizeof(int)
+#define SIZE (CHAR_BIT * sizeof(int))
 
 void dtob(int, char *);
 void show(const char *);

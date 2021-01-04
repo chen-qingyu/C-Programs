@@ -23,7 +23,5 @@ int main(void)
     printf("Float digit    = %20d.\tFloat epsilon       = %20e.\n", FLT_DIG, FLT_EPSILON);
     printf("Double digit   = %20d.\tDouble epsilon      = %20e.\n", DBL_DIG, DBL_EPSILON);
 
-    getchar();
-
     return 0;
 }
