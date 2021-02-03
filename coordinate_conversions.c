@@ -17,7 +17,7 @@ typedef struct
     double angle;
 } polar;
 
-polar rect_to_polar(rect);
+polar rect_to_polar(rect r);
 rect polar_to_rect(polar p);
 
 int main(void)

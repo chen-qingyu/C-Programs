@@ -2,9 +2,9 @@
 
 int main(void)
 {
-    int i = 0x1;
-    char *c = &i;
-    if (c[0] == 0x1)
+    int a = 0x1;
+    char *p = (char *)&a;
+    if (p[0] == 0x1)
     {
         printf("little endian.\n");
     }

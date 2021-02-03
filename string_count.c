@@ -5,13 +5,13 @@
 int main(void)
 {
     char a[SIZE];
-    int i, digit, ch, blank, other;
+    int digit, ch, blank, other;
     while (1)
     {
         digit = 0, ch = 0, blank = 0, other = 0;
         printf("Please enter a character string:\n");
         gets(a);
-        for (i = 0; i < strlen(a); i++)
+        for (int i = 0; i < strlen(a); i++)
         {
             if ((a[i] >= '0') && (a[i] <= '9'))
             {
